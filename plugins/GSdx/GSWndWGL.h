@@ -23,6 +23,8 @@
 
 #ifdef _WIN32
 
+#include <Dwmapi.h> // compositor
+
 class GSWndWGL : public GSWndGL
 {
 	HWND	 m_NativeWindow;
@@ -39,7 +41,7 @@ class GSWndWGL : public GSWndGL
 	void OpenWGLDisplay();
 
 	void SetSwapInterval(int vsync);
-	bool CompositorEnabled() { return false; }
+	bool CompositorEnabled();
 	bool HasLateVsyncSupport() { return m_has_late_vsync; }
 
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -55,6 +57,7 @@ public:
 	void* GetDisplay() {return m_NativeWindow;}
 	void* GetHandle() {return m_NativeWindow;}
 	GSVector4i GetClientRect();
+	GSVector4i GetWindowRect();
 	bool SetWindowText(const char* title);
 
 	void AttachContext();
